@@ -58,7 +58,7 @@ CACHES = {
     'default': {
         #'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
         'BACKEND': 'redis_cache.RedisCache',
-        'LOCATION': '0.0.0.0:6377',
+        'LOCATION': '{0}{1}'.format(os.environ.get('REDISBUDA_PORT_6379_TCP_ADDR', '0.0.0.0'), os.environ.get('REDISBUDA_PORT_6379_TCP_PORT', '6377')),
     }
 }
 
