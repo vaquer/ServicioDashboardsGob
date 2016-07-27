@@ -2,14 +2,6 @@ import os
 import sys
 import requests
 from collections import OrderedDict
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Buda.settings")
-CURRENT = os.path.dirname(__file__)
-sys.path.insert(0, os.path.realpath(os.path.join(CURRENT, '../')))
-
-from django.core.wsgi import get_wsgi_application
-
-application = get_wsgi_application()
 from django.core.cache import cache
 
 

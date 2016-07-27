@@ -1,9 +1,15 @@
 from django.core.cache import cache
 from django.http import JsonResponse
+from .cron_buda import scrapear_api_buda
 
 
 def home(request):
-    return JsonResponse(cache.get('resumen-dependendencias', {}))
+	dependencias_cache = cache.get('resumen-dependendencias', None)
+	if not dependencias_cache:
+		scrapear_api_buda()
+		dependencias_cache = cache.get('resumen-dependendencias', {})
+
+    return JsonResponse(dependencias_cache)
 
 
 def recursos_mas_descargados(request):
