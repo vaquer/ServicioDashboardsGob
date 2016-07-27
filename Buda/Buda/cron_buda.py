@@ -110,4 +110,4 @@ def calcular_datos_dependencia(dependencia):
 
     return {'apertura': (apertura/contador), 'calidad': ARRAY_MEDALLAS[(calidad/contador)], 'descargas': descargas, 'total': contador} if len(resultados_pagina_json_buda) > 1 else {'apertura': 0, 'calidad': 'N/A', 'descargas': 0, 'total': 0}
 
-scrapear_api_buda()
+#scrapear_api_buda()
