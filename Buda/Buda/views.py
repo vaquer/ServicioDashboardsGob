@@ -9,12 +9,12 @@ def home(request):
     Vista que retorna el calculo
     de las varibales de las dependencias
     """
+    scrapear_api_buda()
     dependencias_cache = cache.get('resumen-dependendencias', None)
     if not dependencias_cache:
-        scrapear_api_buda()
         dependencias_cache = cache.get('resumen-dependendencias', {})
 
-    return JsonResponse(dependencias_cache)
+    return JsonResponse({'dependencias': dependencias_cache})
 
 
 def recursos_mas_descargados(request):
