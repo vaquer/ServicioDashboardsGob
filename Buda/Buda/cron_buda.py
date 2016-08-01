@@ -1,6 +1,7 @@
 import os
 import sys
 import requests
+import operator
 from collections import OrderedDict
 from django.core.cache import cache
 
@@ -8,7 +9,8 @@ from django.core.cache import cache
 MEDALLAS = {'bronce': 1, 'plata': 2, 'oro': 3}
 ARRAY_MEDALLAS = {1: 'bronce', 2: 'plata', 3: 'oro'}
 
-json_dependendencias = []
+json_dependendencias = OrderedDict()
+json_dependendencias_ordered = []
 json_recursos = OrderedDict()
 
 
@@ -20,10 +22,10 @@ def scrapear_api_buda():
     """
     for dependencia in recuperar_dependencias():
         print dependencia
-        json_dependendencias.append(calcular_datos_dependencia(dependencia))
+        json_dependendencias[dependencia] = calcular_datos_dependencia(dependencia)
 
     # Se guarda en cache por 27 horas
-    cache.set('resumen-dependendencias', json_dependendencias, 60 * 60 * 27)
+    cache.set('resumen-dependendencias', calcula_ranking(json_dependendencias), 60 * 60 * 27)
     cache.set('descargas-recursos', json_recursos, 60 * 60 * 27)
 
 
@@ -86,6 +88,44 @@ def genera_calificacion(calidad, atrasos, descargas, recomendaciones):
     return (calificacion / 10)
 
 
+def calcula_mediana(muestreo):
+    muestreo_ordenado = sorted(muestreo)
+    length = len(muestreo_ordenado)
+    if not length % 2:
+        return (muestreo_ordenado[length / 2] + muestreo_ordenado[length / 2 - 1]) / 2.0
+
+    return muestreo_ordenado[(len(muestreo) / 2)]
+
+
+def calcula_ranking(dependencias):
+    dependencias_calif = { value: key['calificacion'] for value, key in dependencias.iteritems() }
+
+    dependencias_ordenadas = sorted(dependencias_calif.items(), key=operator.itemgetter(1), reverse=True)
+
+    aux_dependencia = None
+    lengt_index_ordenada = len(dependencias_ordenadas)
+
+    
+    for elemento in range(0, lengt_index_ordenada):
+        for index_dependencia in range(0, lengt_index_ordenada):
+            
+            if elemento < 1:
+                dependencias_ordenadas[index_dependencia] = dependencias[dependencias_ordenadas[index_dependencia][0]]
+            
+            if index_dependencia > 0:
+                if dependencias_ordenadas[index_dependencia]['calificacion'] == dependencias_ordenadas[index_dependencia - 1]['calificacion']:
+                    if dependencias_ordenadas[index_dependencia]['descargas'] > dependencias_ordenadas[index_dependencia - 1]['descargas']:
+                        aux_dependencia = dependencias_ordenadas[index_dependencia - 1]
+                        dependencias_ordenadas[index_dependencia - 1] = dependencias_ordenadas[index_dependencia]
+                        dependencias_ordenadas[index_dependencia] = aux_dependencia
+            
+    for elemento in range(0, lengt_index_ordenada):
+        dependencias_ordenadas[elemento]['ranking'] = (elemento + 1)
+
+    return dependencias_ordenadas
+
+
+
 def calcular_datos_dependencia(dependencia):
     """
     Funcion que recorre todos los recursos
@@ -97,6 +137,7 @@ def calcular_datos_dependencia(dependencia):
 
     # Valores iniciales
     apertura = 0
+    apertura_array = []
     contador = 0
     calidad = 0
     descargas = 0
@@ -136,6 +177,7 @@ def calcular_datos_dependencia(dependencia):
                 pass
 
             apertura += recurso['adela']['dataset']['openessRating']
+            apertura_array.append(recurso['adela']['dataset']['openessRating'])
             contador += 1
         
     if contador == 0:
@@ -143,11 +185,12 @@ def calcular_datos_dependencia(dependencia):
 
     return {
         'institucion': nombre_institucion if nombre_institucion else dependencia,
-        'apertura': (apertura/contador),
+        'apertura': calcula_mediana(apertura_array),
         'calidad': ARRAY_MEDALLAS[(calidad/contador)],
         'descargas': descargas,
         'total': contador,
-        'calificacion': genera_calificacion(ARRAY_MEDALLAS[(calidad/contador)], tiene_pendientes, descargas > 0, tiene_recomendaciones)
-    } if len(resultados_pagina_json_buda) > 1 else {'institucion': nombre_institucion if nombre_institucion else dependencia, 'apertura': 0, 'calidad': 'N/A', 'descargas': 0, 'total': 0, 'calificacion': 0}
+        'calificacion': genera_calificacion(ARRAY_MEDALLAS[(calidad/contador)], tiene_pendientes, descargas > 0, tiene_recomendaciones),
+        'ranking': 0
+    } if len(resultados_pagina_json_buda) > 1 else {'institucion': nombre_institucion if nombre_institucion else dependencia, 'apertura': 0, 'calidad': 'N/A', 'descargas': 0, 'total': 0, 'calificacion': 0, 'ranking': 0}
 
 #scrapear_api_buda()
