@@ -185,7 +185,7 @@ def calcular_datos_dependencia(dependencia):
 
     return {
         'institucion': nombre_institucion if nombre_institucion else dependencia,
-        'apertura': calcula_mediana(apertura_array),
+        'apertura': int(calcula_mediana(apertura_array)),
         'calidad': ARRAY_MEDALLAS[(calidad/contador)],
         'descargas': descargas,
         'total': contador,
