@@ -1,0 +1,146 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>Tabla Comparativa</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="">
+
+    <!-- Bootstrap core -->
+    <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- dataTables jquery plugin -->
+    <link rel="stylesheet" type="text/css" href="/static/css/jquery.dataTables.css?23123">
+
+    <!-- Custom CSS -->
+    <link href="{% static "css/opi_main.css" %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static "css/font-awesome/font-awesome.min.css" %}" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/raty/2.7.0/jquery.raty.min.css">
+
+    <link rel="import" href="{% static "bower_components/polymer/polymer.html" %}">
+    <link rel="import" href="{% static "bower_components/dgm-navbar/dgm-navbar.html" %}">
+    <link rel="import" href="{% static "bower_components/dgm-footer/dgm-footer.html" %}">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:Bold' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+
+  <body>
+
+    <dgm-navbar></dgm-navbar>
+    <div class="container">
+      <div class="pull-right tabs-tablero">
+        <span><a href="#">General</a></span>
+        <span><a href="#" class="active">Tablero</a></span>
+      </div>
+    </div>
+
+    <div class="gray_back">
+      <div class="container">
+        <h5><strong>datos.gob.mx</strong></h5><hr>
+        <div class="row">
+          <!-- <div class="col-sm-3">
+            <span>visitas totales</span>
+            <p class="cantidades-tabla">10,000</p>
+          </div> -->
+          <div class="col-sm-4">
+            <span>Descargas totales</span>
+            <p class="cantidades-tabla" id="downloadsTotal"></p>
+          </div>
+          <div class="col-sm-4">
+            <span>Recursos publicados totales</span>
+            <p class="cantidades-tabla" id="resourcesTotal"></p>
+          </div>
+          <div class="col-sm-4">
+            <span>Instituciones en datos.gob.mx</span>
+            <p class="cantidades-tabla" id="dependencesTotal"></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <h3 class='title'>Top 5 - Datos más descargados</h3>
+            <div class="table-responsive table-400" style="margin-top: 20px;">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Datos</th>
+                    <th class="text-center">Descargas</th>
+                  </tr>
+                </thead>
+                <tbody id="table-datos">
+                  <tr></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="col-sm-5 col-sm-offset-1">
+            <h3 class='title'>Top 5 - Instituciones con más descargas</h3>
+            <div class="table-responsive table-400" style="margin-top: 20px;">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Institución</th>
+                    <th class="text-center">Descargas</th>
+                  </tr>
+                </thead>
+                <tbody id="table-downloads">
+                  <tr></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>Tablero de instituciones de la APF</h2>
+      <br>
+      <i class="fa fa-search fa-2x"></i><input type="text" id="searchbox" placeholder="Busca una institución">
+      <div class="table-responsive">
+        <table class="table display" id="apf_table" cellspacing="0" width="100%">
+          <thead>
+            <tr class="text-center">
+              <td>Institución</td>
+              <td>Ranking</td>
+              <td>Datos</td>
+              <td>Calif. Apertura</td>
+              <td>Descargas</td>
+              <td class="lineTd">Calidad<br><span class="high-light-dashboard">BETA </span><i class="fa fa-question-circle" data-toggle="tooltip" title="No existen datos"></i></td>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="{% static "js/jquery-1.11.0.min.js" %}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raty/2.7.0/jquery.raty.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+
+    <!-- dataTables jquery plugin -->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="/static/js/main.js?2345" type="text/javascript"></script>
+    <script src="{% static "bower_components/webcomponentsjs/webcomponents-lite.min.js" %}"></script>
+
+  </body>
+  <dgm-footer></dgm-footer>
+
+</html>

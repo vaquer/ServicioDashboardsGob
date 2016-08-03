@@ -1,10 +1,16 @@
 import operator
+from django.shortcuts import render
 from django.core.cache import cache
+from django.conf import settings
 from django.http import JsonResponse
 from .cron_buda import scrapear_api_buda
 
 
-def home(request):
+def tabla_comparativa(request):
+    return render(request, 'tabla-comparativa.html', {'settings': settings})
+
+
+def api_comparativa(request):
     """
     Vista que retorna el calculo
     de las varibales de las dependencias

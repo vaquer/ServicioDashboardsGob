@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'fb^8b2yv@&_zljz+-goyur0t5tm)%fxn4$^6+ljlrnb%pev%z+')
 FQDN = os.environ.get('FQDN', 'http://0.0.0.0')
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -58,14 +58,14 @@ CACHES = {
     'default': {
         #'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
         'BACKEND': 'redis_cache.RedisCache',
-        'LOCATION': '{0}:{1}'.format(os.environ.get('REDISBUDA_PORT_6379_TCP_ADDR', '0.0.0.0'), os.environ.get('REDISBUDA_PORT_6379_TCP_PORT', '6374')),
+        'LOCATION': '{0}:{1}'.format(os.environ.get('REDIS_PORT_6379_TCP_ADDR', '0.0.0.0'), os.environ.get('REDIS_PORT_6379_TCP_PORT', '6374')),
     }
 }
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates/')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -127,5 +127,14 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static/'),
+]
 
 STATIC_URL = '/static/'

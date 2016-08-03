@@ -19,6 +19,7 @@ from . import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^apicomparativa/$', views.home),
-    url(r'^apicomparativa/recursos-mas-descargados/$', views.recursos_mas_descargados),
+    url(r'^tablero-instituciones/$', views.tabla_comparativa),
+    url(r'^tablero-instituciones/apicomparativa/$', views.api_comparativa),
+    url(r'^tablero-instituciones/apicomparativa/recursos-mas-descargados/$', views.recursos_mas_descargados),
 ]
