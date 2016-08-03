@@ -29,9 +29,9 @@ def recursos_mas_descargados(request):
     de recursos mas descargados
     """
     recursos = cache.get('descargas-recursos', None)
-    respuesta_ordenada = {}
+    recursos_ordenados = []
 
-    if not None:
+    if recursos is not None:
         recursos_ordenados = sorted(recursos.items(), key=operator.itemgetter(1), reverse=True)[:5]
 
     return JsonResponse({'recursos': recursos_ordenados}, safe=False)
