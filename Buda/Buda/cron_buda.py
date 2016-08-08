@@ -188,9 +188,10 @@ def calcular_datos_dependencia(dependencia):
         'apertura': int(calcula_mediana(apertura_array)),
         'calidad': ARRAY_MEDALLAS[(calidad/contador)],
         'descargas': descargas,
+        'slug': dependencia,
         'total': contador,
         'calificacion': genera_calificacion(ARRAY_MEDALLAS[(calidad/contador)], tiene_pendientes, descargas > 0, tiene_recomendaciones),
         'ranking': 0
-    } if len(resultados_pagina_json_buda) > 1 else {'institucion': nombre_institucion if nombre_institucion else dependencia, 'apertura': 0, 'calidad': 'N/A', 'descargas': 0, 'total': 0, 'calificacion': 0, 'ranking': 0}
+    } if len(resultados_pagina_json_buda) > 1 else {'institucion': nombre_institucion if nombre_institucion else dependencia, 'apertura': 0, 'calidad': 'N/A', 'descargas': 0, 'total': 0, 'calificacion': 0, 'ranking': 0, 'slug': dependencia}
 
 #scrapear_api_buda()

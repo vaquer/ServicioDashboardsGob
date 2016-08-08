@@ -28,7 +28,7 @@ h6 {
   /*text-transform: uppercase;*/
   /*font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;*/
   /*font-family: 'PT Serif', serif;*/
-  /*font-weight: 700;*/
+  font-weight: 700;
 }
 
 .img-centered {
@@ -72,12 +72,8 @@ table td {
 }
 
 .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-  line-height: 2.428571;
+  line-height: 1.42857143;
   border-top: 1px solid #dddddd !important;
-}
-
-.high-light-dashboard {
-    color: #00cc99;
 }
 
 .danger-dashboard {
@@ -186,8 +182,6 @@ table .list-inline>li {
 .gly-2x { font-size: 1.5em }
 .gly-3x { font-size: 2.5em }
 
-.table-500 { height: 500px; }
-
 .title {
     color: #585858;
     font-size: 18px;
@@ -204,6 +198,7 @@ table .list-inline>li {
   text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
   max-width: 30px;
+  cursor: pointer;
 }
 
 .datosTitle {
@@ -239,3 +234,100 @@ table.dataTable.display tbody tr td {
   color: #FFFFFF !important;
   border: none !important;
 }
+
+/*dashboard opi*/
+
+.content-sub-dashboard {
+  margin-top: 80px;
+}
+
+.calificacion-dashboard {
+    font-weight: bold;
+    font-size: 3em;
+}
+
+.lugar-dashboard {
+    float: left;
+    margin-left: 15px;
+}
+
+.content-dashboard .title, .content-dashboard .subtitle {
+    color: #585858;
+    margin-bottom: 5px !important;
+}
+
+.content-dashboard p {
+    color: #777777;
+}
+
+.content-dashboard h3 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.content-dashboard h2 {
+    font-size: 34px;
+}
+
+.content-dashboard hr {
+    border-top: 1px solid #cccccc;
+}
+
+.content-dashboard table {
+    font-size: 12px
+}
+
+.content-dashboard a {
+  text-decoration: underline;
+}
+
+.high-light-dashboard{
+  color:#00cc99;
+}
+
+.calificacion-dashboard-gray  {
+    color: #b7b7b7;
+    font-weight: bold;
+    font-size: 3em;
+}
+
+.table-cell, .table > tbody > tr > td, .table > thead > tr > th {
+    color: #474747;
+    font-weight: 300;
+    padding: 15px;
+}
+
+.content-dashboard .table > thead > tr > th {
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border-top: 1px solid #dddddd !important;
+  font-weight: 600;
+}
+
+
+#logo_org{
+  margin-left: -18px;
+}
+
+svg { overflow: visible !important; }
+
+.gly-3x { font-size: 2.5em }
+.gly-warning { font-size: 3em; margin: 0 15px;  }
+
+.gray_back {
+  background-color: #F7F5F5;
+}
+
+.gray_back .container {
+  padding: 40px 0 15px;
+}
+
+.overlay-dashboard{
+  position: absolute;
+  right: 0;
+  width: 100%;
+}
+
+.table-500 { height: 500px; }
+.table-400 { height: 400px; }

@@ -34,7 +34,7 @@ $(document).ready(function() {
       "info": false,
       "bLengthChange": false,
       "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-        $('td:eq(0)', nRow).addClass("depenTitle").attr("title",aData.institucion);
+        $('td:eq(0)', nRow).addClass("depenTitle").attr("title",aData.institucion).attr("tag", aData.slug);
         $('td:eq(3)', nRow).attr( "data-score",aData.apertura ).addClass("rating text-center").html("");
         $('td:eq(1), td:eq(2), td:eq(4)', nRow).addClass("text-center");
         $('td:eq(5)', nRow).addClass("starsTd text-center");
@@ -117,5 +117,10 @@ $(document).ready(function() {
         }
       })
     };
+
+    $('#apf_table tbody').on('click', 'tr', function () {
+        var titleVar = $(this).find(".depenTitle").attr('tag');
+        window.location.href = "/tablero-instituciones/detalle/" + titleVar + "/";
+    });
 
 });
