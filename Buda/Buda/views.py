@@ -1,3 +1,7 @@
+"""
+Modulo que controla
+las vistas de la aplicacion
+"""
 import operator
 from django.shortcuts import render
 from django.core.cache import cache
@@ -22,7 +26,8 @@ def detalle_institucion(request, slug=''):
     en calificaciones y estadisticas
     URL: /tablero-instituciones/detalle-institucion/{slug}/
     """
-    return render(request, 'detalle-dependencia.html', {'settings': settings, 'slug': slug})
+    template = 'detalle-dependencia.html'
+    return render(request, template, {'settings': settings, 'slug': slug})
 
 
 def api_comparativa(request):
@@ -51,6 +56,7 @@ def recursos_mas_descargados(request):
     recursos_ordenados = []
 
     if recursos is not None:
-        recursos_ordenados = sorted(recursos.items(), key=operator.itemgetter(1), reverse=True)[:5]
+        ky = operator.itemgetter(1)
+        recursos_ordenados = sorted(recursos.items(), key=ky, reverse=True)[:5]
 
     return JsonResponse({'recursos': recursos_ordenados}, safe=False)
