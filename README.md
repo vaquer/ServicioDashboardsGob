@@ -26,14 +26,14 @@ Para poder ver la herramienta corra el siguiente comando:
 ```
    python ServicioDashboardsGob/Buda/manage.py runserver
 ```
-Despues en el navegador:
+Despues en la barra del navegador:
 ```
 http://127.0.0.1:8000/tablero-instituciones/
 ```
 
 # Instalación Docker
 ### Instalación
-Para los siguientes pasos se require tener instalada la plataforma Docker_ en el servidor aplicativo.
+Para los siguientes pasos se require tener instalada la plataforma [Docker](https://www.docker.com/products/overview) en el servidor aplicativo.
 
 En el servidor aplicativo construimos la imagen del contenedor:
 ```
@@ -41,7 +41,7 @@ En el servidor aplicativo construimos la imagen del contenedor:
   docker build -t tableros ServicioDashboardsGob/Buda/Docker/.
 ```
 ### Uso
-Una vez construida la imagen Docker de la herramienta, ya es posible generar el contenedor donde estara ejecutandose la herramienta. Un punto a considerar antes de avanzar con la creación del contenedor es que el contenedor hace uso de la tecnologia Redis como background en el manejo de la información procesada, por lo que se necesita crear un contenedor Docker con Redis y conectarlo al contenedor aplicativo.
+Una vez construida la imagen Docker de la herramienta, ya es posible generar el contenedor donde estara ejecutandose la herramienta. Un punto a considerar antes de avanzar con la creación del contenedor es que el contenedor hace uso de la tecnologia **Redis** como background en el manejo de la información procesada, por lo que se necesita crear un contenedor Docker con **Redis** y conectarlo al contenedor aplicativo.
 
 Los comandos de consola para correr la aplicacion con toda la arquitectura necesaria son los siguientes:
 ```
@@ -49,7 +49,7 @@ Los comandos de consola para correr la aplicacion con toda la arquitectura neces
   docker run --name tableros -e SECRET_KEY="{{secret_key}}" --link redistableros:redis -e FQDN="http://tudominio.com/" -e DEBUG=False -p 80:80 tableros
 ```
 
-Despues en el navegador:
+Despues en la barra del navegador:
 ```
 http://tudominio.com/tablero-instituciones/
 ```
