@@ -12,7 +12,7 @@ $(document).ready(function() {
         $.each(data.recursos, function(key, value){
           var htmlDatos = '';
           htmlDatos += '<tr><td class="datosTitle" title="'+value[0]+'">' + value[0] + '</td><td class="text-center">' + value[1].toLocaleString('en') + '</td></tr>';
-          $('#table-datos tr').first().after(htmlDatos);
+          $('#table-datos tr').last().after(htmlDatos);
         });
       }
     });

@@ -11,16 +11,12 @@
     <!-- Bootstrap core -->
     <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- dataTables jquery plugin -->
     <link rel="stylesheet" type="text/css" href="/static/css/jquery.dataTables.css?1445">
-
     <!-- Custom CSS -->
     <link href="{% static "css/opi_main.css" %}" rel="stylesheet">
-
     <!-- Custom Fonts -->
     <link href="{% static "css/font-awesome/font-awesome.min.css" %}" rel="stylesheet">
-
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/raty/2.7.0/jquery.raty.min.css">
 
     <link rel="import" href="{% static "bower_components/polymer/polymer.html" %}">
@@ -35,21 +31,10 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
   </head>
 
   <body>
-
     <dgm-navbar></dgm-navbar>
-    {% comment %}
-    <div class="container">
-      <div class="pull-right tabs-tablero">
-        <span><a href="#">General</a></span>
-        <span><a href="#" class="active">Tablero</a></span>
-      </div>
-    </div>
-    {% endcomment %}
-
     <div class="gray_back">
       <div class="container">
         <h5><strong>datos.gob.mx</strong></h5><hr>
@@ -75,7 +60,7 @@
           <div class="col-sm-6">
             <h3 class='title'>Top 5 - Datos más descargados</h3>
             <div class="table-responsive table-400" style="margin-top: 20px;">
-              <table class="table">
+              <table class="table" id="top-5-datos">
                 <thead>
                   <tr>
                     <th>Datos</th>
@@ -91,7 +76,7 @@
           <div class="col-sm-5 col-sm-offset-1">
             <h3 class='title'>Top 5 - Instituciones con más descargas</h3>
             <div class="table-responsive table-400" style="margin-top: 20px;">
-              <table class="table">
+              <table class="table" id="top-5-institucion">
                 <thead>
                   <tr>
                     <th>Institución</th>
@@ -139,7 +124,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     
     <!-- Custom JS -->
-    <script src="/static/js/main.js?2323" type="text/javascript"></script>
+    <script src="/static/js/main.js?2324" type="text/javascript"></script>
     <script src="{% static "bower_components/webcomponentsjs/webcomponents-lite.min.js" %}"></script>
 
   </body>
