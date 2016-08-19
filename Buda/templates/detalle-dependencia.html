@@ -271,12 +271,11 @@
             });
 
             totalCalidad = Math.ceil(sumaCalidad / issuedTotal);
-            $("#calidadDatosHtml").text(calidad_calif[totalCalidad]);
-
-            console.log(sumaRating / issuedTotal);
-            totalRaiting = Math.round(sumaRating / issuedTotal);
             console.log(totalCalidad);
-            $("#stars-raiting").attr("data-rating",totalRaiting);
+            $("#calidadDatosHtml").text(calidad_calif[(isNaN(totalRaiting) ? 0 : totalCalidad)]);
+
+            totalRaiting = Math.round(sumaRating / issuedTotal);
+            $("#stars-raiting").attr("data-rating", (isNaN(totalRaiting) ? 0 : totalRaiting));
 
             //Función para obtener el top 5 de descargas
             function getTopN(arr, prop, n) {
