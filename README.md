@@ -1,4 +1,4 @@
-# ServicioDashboardsGob
+# Herramienta Tabla Comparativa de Dependencias
 Esta herramienta permite a los usuarios tener una vista comparativa de los datos resumidos de las dependencias.
 La herramienta esta construida en [Django 1.9.7](https://docs.djangoproject.com/en/1.9/) y diseñada para correr en ambientes
 con sistema operativo Linux.
