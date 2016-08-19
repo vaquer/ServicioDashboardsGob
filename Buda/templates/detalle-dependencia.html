@@ -184,12 +184,13 @@
                 console.log("error- ",data);
               }
             });
-            console.log(dataApi);
+            //console.log(dataApi);
 
             orgLogoUrl = 'https://raw.githubusercontent.com/mxabierto/assets/master/img/logos/' + orgName + '.png';
             $('#logo_org').attr('src',orgLogoUrl);
 
             var monthNames = [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sept", "Oct", "Nov", "Dic" ];
+            var calidad_calif = ["N/A", "Bronce", "Plata", "Oro"]
 
             $.each(dataApi.results,function(key, value){
 
@@ -199,14 +200,16 @@
               resourceTitle = value.adela.dataset.title;
               //Calificación Calidad de Datos
               if (value.calificacion == "bronce") {
-                sumaCalidad = sumaCalidad + 1;
+                sumaCalidad += 1;
               } else if (value.calificacion == "plata") {
-                sumaCalidad = sumaCalidad + 2;
+                sumaCalidad += 2;
               } else if (value.calificacion == "oro") {
-                sumaCalidad = sumaCalidad + 3;
+                sumaCalidad += 3;
               }
 
-              totalCalidad = sumaCalidad / issuedTotal;
+              
+              /*
+               console.log(totalCalidad);
               if (totalCalidad > 0 && totalCalidad <= 1.5) {
                 var calidadDatos = "Bronce";
               } else if (totalCalidad > 1.5 && totalCalidad <= 2.5) {
@@ -214,7 +217,7 @@
               } else if (totalCalidad > 2.5 && totalCalidad <= 3) {
                 var calidadDatos = "Oro";
               }
-              $("#calidadDatosHtml").text(calidadDatos);
+              */
 
               totalRecommendations = totalRecommendations + value.recommendations.length
 
@@ -232,6 +235,7 @@
                 html += '<tr><td>' + recommendations.categoria + '</td><td><a href="/conjuntos/'+ resourceId +'/edit">' + resourceTitle + '</a></td><td><a href="'+urlError+'">' + nameError + '</a></td><td><a href="#">Notifica</a></td></tr>';
                 $('#table-recommendations tr').first().after(html);
               });
+
 
               //Recorre descargas
               $.each(value.analytics,function(key, value){
@@ -255,9 +259,6 @@
               //Obtengo calificacion de apertura
               rating = value.adela.dataset.openessRating;
               sumaRating = sumaRating + rating;
-              totalRaiting = sumaRating / issuedTotal;
-
-              $("#stars-raiting").attr("data-rating",totalRaiting);
 
               //Obtengo public
               var isPublic = value.adela.dataset.public;
@@ -268,6 +269,14 @@
               }
 
             });
+
+            totalCalidad = Math.ceil(sumaCalidad / issuedTotal);
+            $("#calidadDatosHtml").text(calidad_calif[totalCalidad]);
+
+            console.log(sumaRating / issuedTotal);
+            totalRaiting = Math.round(sumaRating / issuedTotal);
+            console.log(totalCalidad);
+            $("#stars-raiting").attr("data-rating",totalRaiting);
 
             //Función para obtener el top 5 de descargas
             function getTopN(arr, prop, n) {

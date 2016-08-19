@@ -10,8 +10,8 @@ from collections import OrderedDict
 from django.core.cache import cache
 
 
-MEDALLAS = {'bronce': 1, 'plata': 2, 'oro': 3}
-ARRAY_MEDALLAS = {1: 'bronce', 2: 'plata', 3: 'oro'}
+MEDALLAS = {'bronce': 1, 'plata': 2, 'oro': 3, 'N/A': 0}
+ARRAY_MEDALLAS = {0: 'N/A', 1: 'bronce', 2: 'plata', 3: 'oro'}
 
 JSON_DEPENDENCIAS = OrderedDict()
 JSON_RECURSOS = OrderedDict()
@@ -65,7 +65,7 @@ class MatTableros(object):
         de una dependencia
         Retorno: Int
         """
-        calificacion_calidad = {'bronce': 40, 'plata': 10, 'oro': 10}
+        calificacion_calidad = {'N/A': 0, 'bronce': 40, 'plata': 10, 'oro': 10}
         calificacion = 0
 
         calificacion += calificacion_calidad[calidad]
@@ -91,6 +91,7 @@ class MatTableros(object):
         muestreo_ordenado = sorted(muestreo)
         length = len(muestreo_ordenado)
         if not length % 2:
+            print length
             a_m = muestreo_ordenado[length / 2]
             b_m = muestreo_ordenado[length / 2 - 1]
             return (a_m + b_m) / 2.0
@@ -204,12 +205,17 @@ class MatTableros(object):
                 contador += 1
 
         # Resultados finales
-        apertura = int(MatTableros.calcula_mediana(apertura_array))
-        calidad = ARRAY_MEDALLAS[(calidad/contador)]
-        calificacion = MatTableros.genera_calificacion(calidad, pendientes, descargas > 0, recomendaciones)
+        if len(apertura_array) > 0:
+            apertura = int(MatTableros.calcula_mediana(apertura_array))
+        else:
+            apertura = 0
 
         if contador == 0:
             contador = 1
+            
+        calidad = ARRAY_MEDALLAS[(calidad/contador)]
+        calificacion = MatTableros.genera_calificacion(calidad, pendientes, descargas > 0, recomendaciones)
+
 
         return {
             'institucion': nombre_institucion or dependencia,
