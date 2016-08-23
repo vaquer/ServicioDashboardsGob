@@ -1,5 +1,32 @@
 $(document).ready(function() {
 
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
     //var urlDescargasDatos = 'partials/example.json';
     var urlDescargasDatos = '/tablero-instituciones/apicomparativa/recursos-mas-descargados/';
     var newDataSet, descargasDatos;
@@ -7,13 +34,21 @@ $(document).ready(function() {
     $.ajax({
       url: urlDescargasDatos,
       async: false,
-      type: 'GET',
+      type: 'POST',
       success: function(data) {
+        if(data.recursos === null){
+          alert('Sentimos los incovenientes. Estamos actualizando los datos. Intenta mas tarde.');
+          return false;
+        }
         $.each(data.recursos, function(key, value){
           var htmlDatos = '';
           htmlDatos += '<tr><td class="datosTitle" title="'+value[0]+'">' + value[0] + '</td><td class="text-center">' + value[1].toLocaleString('en') + '</td></tr>';
           $('#table-datos tr').last().after(htmlDatos);
         });
+      },
+      error: function(){
+        alert('Sentimos los incovenientes. Estamos actualizando los datos. Intenta mas tarde.');
+        return false;
       }
     });
 
@@ -47,9 +82,12 @@ $(document).ready(function() {
       "ajax": {
         "url": urlDataSet,
         "async": false,
+        "type": 'POST',
         "dataSrc": function ( json ) {
-          //console.log(json.dependencias);
-          //META.fn: sortJSON
+          if(json.dependencias === null){
+            alert('Sentimos los incovenientes. Estamos actualizando los datos. Intenta mas tarde.');
+            return false;
+          }
           function sortJSON(data, key) {
             return data.sort(function (a, b) {
                 var x = a[key];
@@ -86,6 +124,9 @@ $(document).ready(function() {
           });
           return json.dependencias;
         }
+      },"error": function(){
+        alert('Sentimos los incovenientes. Estamos actualizando los datos. Intenta mas tarde.');
+        return false;
       },
       "columns": [
           { "data": "institucion" },

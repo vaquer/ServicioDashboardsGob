@@ -271,8 +271,7 @@
             });
 
             totalCalidad = Math.ceil(sumaCalidad / issuedTotal);
-            console.log(totalCalidad);
-            $("#calidadDatosHtml").text(calidad_calif[(isNaN(totalRaiting) ? 0 : totalCalidad)]);
+            $("#calidadDatosHtml").text(calidad_calif[(isNaN(totalCalidad) ? 0 : totalCalidad)]);
 
             totalRaiting = Math.round(sumaRating / issuedTotal);
             $("#stars-raiting").attr("data-rating", (isNaN(totalRaiting) ? 0 : totalRaiting));
@@ -292,7 +291,6 @@
                 return clone.slice(0, n || 1);
             }
 
-          
             var n = 5;
             var topScorers = getTopN(valueDownloads, "value", n);
             topScorers.forEach(function(item, index) {

@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^tablero-instituciones/$', views.tabla_comparativa),
     url(r'^tablero-instituciones/detalle/(?P<slug>[-_a-zA-Z0-9]+)/$', views.detalle_institucion),
+    url(r'^tablero-instituciones/generar-resumen/$', views.genera_resumen_dependencias),
     url(r'^tablero-instituciones/apicomparativa/$', views.api_comparativa),
     url(r'^tablero-instituciones/apicomparativa/recursos-mas-descargados/$', views.recursos_mas_descargados),
 ]

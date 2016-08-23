@@ -6,7 +6,7 @@ import operator
 from django.shortcuts import render
 from django.core.cache import cache
 from django.conf import settings
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from .cron_buda import scrapear_api_buda
 
 
@@ -30,6 +30,14 @@ def detalle_institucion(request, slug=''):
     return render(request, template, {'settings': settings, 'slug': slug})
 
 
+def genera_resumen_dependencias(request):
+    if request.method != 'POST':
+        raise Http404
+
+    scrapear_api_buda()
+    return JsonResponse({'status': 'ok'})
+
+
 def api_comparativa(request):
     """
     Vista que retorna el calculo
@@ -38,10 +46,6 @@ def api_comparativa(request):
     RESPUESTA: Json
     """
     dependencias_cache = cache.get('resumen-dependendencias', None)
-    if not dependencias_cache:
-        scrapear_api_buda()
-        dependencias_cache = cache.get('resumen-dependendencias', {})
-
     return JsonResponse({'dependencias': dependencias_cache})
 
 
