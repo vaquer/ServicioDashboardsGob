@@ -7,7 +7,7 @@ from django.shortcuts import render
 from django.core.cache import cache
 from django.conf import settings
 from django.http import JsonResponse, Http404
-from .cron_buda import scrapear_api_buda
+from .buda_tools import scrapear_api_buda
 
 
 def tabla_comparativa(request):
@@ -31,6 +31,13 @@ def detalle_institucion(request, slug=''):
 
 
 def genera_resumen_dependencias(request):
+    """
+    Vista que renueva el resumen
+    de las varibales de las dependencias
+    URL: /tablero-instituciones/generar-resumen/
+    RESPUESTA: Json
+    Metodo Http: POST
+    """
     if request.method != 'POST':
         raise Http404
 
