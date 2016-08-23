@@ -3,7 +3,7 @@ MAINTAINER Francisco Vaquero <akura11.tt@gmail.com>
 
 RUN apk add git bash --update-cache && rm -rf /var/cache/apk/*
 
-RUN mkdir /project && touch /var/log/buda.log && touch /var/log/test.log && touch /var/log/budacron.log && \
+RUN mkdir /project && touch /var/log/buda.log && \
     git clone https://github.com/vaquer/ServicioDashboardsGob.git /project && \
     pip install -r /project/requirements.txt
 

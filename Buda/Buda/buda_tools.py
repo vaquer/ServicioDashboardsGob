@@ -91,7 +91,6 @@ class MatTableros(object):
         muestreo_ordenado = sorted(muestreo)
         length = len(muestreo_ordenado)
         if not length % 2:
-            print length
             a_m = muestreo_ordenado[length / 2]
             b_m = muestreo_ordenado[length / 2 - 1]
             return (a_m + b_m) / 2.0
@@ -244,11 +243,15 @@ def scrapear_api_buda():
     y obtiene el resumen de cada dependencia
     para guardarlo en cache
     """
+    count_dependencias = 0
     for dep in NetWorkTablero.recuperar_dependencias():
-        print dep
+        print "Dependencia: {0}".format(dep)
+        count_dependencias += 1
         JSON_DEPENDENCIAS[dep] = MatTableros.generar_tablero(dep)
 
     # Se guarda en cache por 27 horas
     ranking = MatTableros.calcula_ranking(JSON_DEPENDENCIAS)
     cache.set(KEY_DEPEN, ranking, CACHE_TTL)
     cache.set(KEY_RECUR, JSON_RECURSOS, CACHE_TTL)
+    print "************************Terminan calculos*************************************"
+    print "DEPENDENCIAS PROCESADAS: {0}".format(str(count_dependencias))
